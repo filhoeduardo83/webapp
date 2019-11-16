@@ -9,11 +9,11 @@ const headerProps = {
     //subtitle: 'Informe suas credenciais'
 }
 
-const baseUrl = 'http://localhost:8000/register/1003'
-// const baseUrl = 'http://localhost:4001/users'
+const baseUrlLogin = 'http://localhost:8000/register/1003'
+const baseUrlCustomer = 'http://localhost:7000/customers'
 
 const initialState = {
-    user: { username: '', password: ''}
+    user: { name:'', email:'', tipoPessoa:'PF', cep:'', endereco:'', username: '', password: ''}
 }
 
 
@@ -27,13 +27,21 @@ export default class Register extends React.Component {
 
     save() {
         const user = this.state.user
-        const method = user.id ? 'put' : 'post'
-        const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
-        axios[method](url, user)
+        const method = 'post'
+        const urlLogin = baseUrlLogin
+        const urlCustomer =  baseUrlCustomer
+
+        axios[method](urlLogin, user)
             .then(resp => {
+                console.log(user)
                 console.log(resp.data) 
-                this.setState({ user: initialState.user })
             })
+        axios[method](urlCustomer, user)
+        .then(resp => {
+            console.log(user)
+            console.log(resp.data) 
+        })
+        this.setState({ user: initialState.user })
     }
 
     updateField(event) {
@@ -51,21 +59,47 @@ export default class Register extends React.Component {
             <Main  {...headerProps}>
                 <div class="register-page">
                     <div class="form">
-                        <form class="register-form">Informe as novas credenciais:<p />
+                        <form class="register-form"><h1>Novo cadastro</h1><p />
+                            Nome Completo
+                            <input type="text" className="form-control"
+                                name="name"
+                                value={this.state.user.name}
+                                onChange={e => this.updateField(e)}
+                                placeholder="Digite o nome completo" />
+                            Email
+                            <input type="text" className="form-control"
+                                name="email"
+                                value={this.state.user.email}
+                                onChange={e => this.updateField(e)}
+                                placeholder="Digite o email" />
+                            CEP
+                            <input type="text" className="form-control"
+                                name="cep"
+                                value={this.state.user.cep}
+                                onChange={e => this.updateField(e)}
+                                placeholder="Digite o CEP" />
+                            Endereço
+                            <input type="text" className="form-control"
+                                name="endereco"
+                                value={this.state.user.endereco}
+                                onChange={e => this.updateField(e)}
+                                placeholder="Digite o endereço completo" />
+                            Login
                             <input type="text" className="form-control"
                                 name="username"
                                 value={this.state.user.username}
                                 onChange={e => this.updateField(e)}
-                                placeholder="Digite o nome" />
+                                placeholder="Digite o nome de usuário" />
+                            Senha:
                             <input type="password" className="form-control"
                                 name="password"
                                 value={this.state.user.password}
                                 onChange={e => this.updateField(e)}
                                 placeholder="Digite a senha" />
-                                <button className="btn btn-primary"
-                                    onClick={e => this.save(e)}>
-                                    Registrar
-                                </button>
+                            <button className="btn btn-primary"
+                                onClick={e => this.save(e)}>
+                                Registrar
+                            </button>
                         </form>
                     </div>
                 </div>

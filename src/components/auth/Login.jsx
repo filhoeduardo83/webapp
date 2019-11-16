@@ -10,7 +10,7 @@ const headerProps = {
 }
 
 const baseUrl = 'http://localhost:8000/authenticate'
-// const baseUrl = 'http://localhost:4001/users'
+//const baseUrl = 'http://localhost:4001/users'
 
 const initialState = {
     user: { username: '', password: '' },
@@ -31,6 +31,7 @@ export default class Login extends React.Component {
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
         axios[method](url, user)
             .then(resp => {
+                console.log(user)
                 console.log(resp.data) 
                 this.setState({ user: initialState.user })
             })
@@ -49,26 +50,21 @@ export default class Login extends React.Component {
     render() {
         return (
             <Main  {...headerProps}>
-                <div class="login-page">
-                    <div class="form">
-                        {/* <form class="register-form">
-                            <input type="text" placeholder="name"/>
-                            <input type="password" placeholder="password"/>
-                            <input type="text" placeholder="userName"/>
-                            <button>create</button>
-                            <p class="message">Já registrado? <a href="#">Sign In</a></p>
-                        </form> */}
-                        <form class="login-form">Informe suas credenciais:<p />
+                <div className="login-page">
+                    <div className="form">
+                        <form className="login-form"><h1>Login</h1><p />
+                            Nome de usuario:
                             <input type="text" className="form-control"
                                 name="username"
                                 value={this.state.user.username}
                                 onChange={e => this.updateField(e)}
-                                placeholder="Digite o nome" />
+                                placeholder="username" />
+                            Senha:
                             <input type="password" className="form-control"
                                 name="password"
                                 value={this.state.user.password}
                                 onChange={e => this.updateField(e)}
-                                placeholder="Digite a senha" />
+                                placeholder="1234" />
                             
                                 <button className="btn btn-primary"
                                     onClick={e => this.save(e)}>
