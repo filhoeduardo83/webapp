@@ -10,7 +10,7 @@ const headerProps = {
 }
 
 const baseUrlLogin = 'http://localhost:8000/register/1003'
-const baseUrlCustomer = 'http://localhost:7000/customers'
+const baseUrlCustomer = 'http://localhost:7000/customers/'
 
 const initialState = {
     user: { name:'', email:'', tipoPessoa:'PF', cep:'', endereco:'', username: '', password: ''}
