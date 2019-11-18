@@ -23,58 +23,26 @@ export default class Register extends React.Component {
 
     clear() {
         this.setState({ user: initialState.user })
-    }1
+    }
 
     save() {
         const user = this.state.user
         const method = 'post'
         const urlLogin = baseUrlLogin
         const urlCustomer =  baseUrlCustomer
-        if (!user.username || !user.password || !user.name) {
-            console.log("Preencha os campos obrigatórios para se cadastrar")
-        }else{
-            axios[method](urlLogin, user)
-            .then(resp => {
-                console.log(user)
-                console.log(resp.data) 
-                console.log("Cadastro realizado com sucesso!!!")
 
-            })
-
-            
-            axios[method](urlCustomer, user)
+        axios[method](urlLogin, user)
             .then(resp => {
                 console.log(user)
                 console.log(resp.data) 
             })
-            this.setState({ user: initialState.user })
-        }
-        
-       
-        }
-
-
-            
-
-    
-
-    // handleSignUp = async e => {
-    //     e.preventDefault();
-    //     const { username, email, password } = this.state;
-    //     if (!username || !email || !password) {
-    //       this.setState({ error: "Preencha todos os dados para se cadastrar" });
-    //     } else {
-    //       try {
-    //         await api.post("/users", { username, email, password });
-    //         this.props.history.push("/");
-    //       } catch (err) {
-    //         console.log(err);
-    //         this.setState({ error: "Ocorreu um erro ao registrar sua conta. T.T" });
-    //       }
-    //     }
-    //   };
-
-
+        axios[method](urlCustomer, user)
+        .then(resp => {
+            console.log(user)
+            console.log(resp.data) 
+        })
+        this.setState({ user: initialState.user })
+    }
 
     updateField(event) {
         const user = { ...this.state.user }
@@ -86,14 +54,12 @@ export default class Register extends React.Component {
         this.props.history.push("/");
     };
 
-    
-
     render() {
         return (
             <Main  {...headerProps}>
-                <div className="register-page">
-                    <div className="form">
-                        <form className="register-form"><h1>Novo cadastro</h1><p />
+                <div class="register-page">
+                    <div class="form">
+                        <form class="register-form"><h1>Novo cadastro</h1><p />
                             Nome Completo
                             <input type="text" className="form-control"
                                 name="name"
@@ -130,11 +96,10 @@ export default class Register extends React.Component {
                                 value={this.state.user.password}
                                 onChange={e => this.updateField(e)}
                                 placeholder="Digite a senha" />
-                            <button className="btn btn-primary mt-3"
+                            <button className="btn btn-primary"
                                 onClick={e => this.save(e)}>
                                 Registrar
                             </button>
-                            <p className="message">Já possui cadastro? <Link to="/login">Realize seu login</Link></p>
                         </form>
                     </div>
                 </div>

@@ -27,17 +27,12 @@ export default class Login extends React.Component {
 
     save() {
         const user = this.state.user
-        const method = 'post'
-        const url = baseUrl
-        
-        if (!user.username || !user.password) {
-            console.log("Preencha os campos username e senha")
-        }else
+        const method = user.id ? 'put' : 'post'
+        const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
         axios[method](url, user)
             .then(resp => {
                 console.log(user)
                 console.log(resp.data) 
-                console.log("Login Realizado com Sucesso") 
                 this.setState({ user: initialState.user })
             })
     }
