@@ -9,43 +9,44 @@ const headerProps = {
 }
 
 
-const baseUrl = 'http://localhost:3001/users'
+const baseUrl = 'http://localhost:7000/customers'
 const initialState = {
-    user: { name:'', email:''},
+    customer: { name:'', email:'', tipoPessoa:'PF', cep:'', endereco:'', username: '', password: ''},
     list: []
 }
 
 
-export default class UserCrud extends Component {
+export default class CustomerCrud extends Component {
     
     state = {...initialState}
 
     componentWillMount() {
-        axios(baseUrl).then(resp => {
+        axios['get'](baseUrl).then(resp => {
             this.setState({ list: resp.data})
         })
     }
 
     clear() {
-        this.setState({ user: initialState.user})
+        this.setState({ customer: initialState.customer})
     }
 
     save () {
-        const user = this.state.user
-        const method = user.id ? 'put' : 'post'
-        const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
-        axios[method](url, user)
+        const customer = this.state.customer
+        const method = 'post'
+        const url = customer.id ? `${baseUrl}/${customer.id}` : baseUrl
+        axios[method](url, customer)
             .then (resp => {
                 const list = this.getUpdatedList(resp.data)
-                this.setState({ user: initialState.user, list})
+                this.setState({ customer: initialState.customer, list})
             })
     }
 
     updateField(event) {
-        const user = {...this.state.user}
-        user[event.target.name] = event.target.value
-        this.setState({ user })
+        const customer = {...this.state.customer}
+        customer[event.target.name] = event.target.value
+        this.setState({ customer })
     }
+
 
     renderForm() {
         return (
@@ -56,7 +57,7 @@ export default class UserCrud extends Component {
                             <label>Nome</label>
                             <input type="text" className="form-control"
                                 name="name"
-                                value={this.state.user.name}
+                                value={this.state.customer.name}
                                 onChange={e => this.updateField(e)}
                                 placeholder="Digite o nome" />
                          </div>
@@ -64,10 +65,10 @@ export default class UserCrud extends Component {
                     
                     <div className="col-12 col-md-6">
                         <div className="form-group">
-                            <label>Email</label>
+                            <label>Username</label>
                             <input type="text" className="form-control"
-                                name="email"
-                                value={this.state.user.email}
+                                name="username"
+                                value={this.state.customer.username}
                                 onChange={ e => this.updateField(e)}
                                 placeholder="Digite o email" />
                         </div>
@@ -84,9 +85,16 @@ export default class UserCrud extends Component {
                         </button>
 
                         <button className="btn btn-secundary ml-2"
+                            onClick={ e => this.getUpdatedList(e)}>
+                            Atualizar Lista
+                        
+                        </button>
+                        <button className="btn btn-secundary ml-2"
                             onClick={ e => this.clear(e)}>
                             Cancelar
                         </button>
+
+
                     </div>
                 </div>
                 
@@ -94,19 +102,19 @@ export default class UserCrud extends Component {
         )
     }
 
-    getUpdatedList(user){
-        const list = this.state.list.filter(u => u.id !==user.id)
-        list.unshift(user)
-        return list
+    getUpdatedList(customer){
+        axios['get'](baseUrl).then(resp => {
+            this.setState({ list: resp.data})
+        })
     }
 
-    load(user) {
-        this.setState({ user })
+    load(customer) {
+        this.setState({ customer })
     }
 
-    remove(user) {
-        axios.delete(`${baseUrl}/${user.id}`).then(resp => {
-            const list = this.state.list.filter(u => u !==user)
+    remove(customer) {
+        axios.delete(`${baseUrl}/${customer.id}`).then(resp => {
+            const list = this.state.list.filter(u => u !==customer)
             this.setState({ list })
         })
     }
@@ -118,7 +126,7 @@ export default class UserCrud extends Component {
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Email</th>
+                            <th>Username</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -130,33 +138,41 @@ export default class UserCrud extends Component {
     }
 
     renderRows() {
-            return this.state.list.map(user => {
-                return (
-                    <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>
-                            <button className="btn btn-warning"
-                                onClick={() => this.load(user)}>
-                                <i className="fa fa-pencil" />
-                            </button>
-                            <button className="btn btn-danger ml-2"
-                                onClick={() => this.remove(user)}>
-                                <i className="fa fa-trash" />
-                            </button>
-                        </td>
-                    </tr>
-                )
-            })
+            if(!this.state.list){
+                return "Nenhum registro encontrado"
+            }else{
+                return this.state.list.map(customer => {
+                    return (
+                        <tr key={customer.id}>
+                            <td>{customer.id}</td>
+                            <td>{customer.name}</td>
+                            <td>{customer.username}</td>
+                            <td>
+                                <button className="btn btn-warning"
+                                    onClick={() => this.load(customer)}>
+                                    <i className="fa fa-pencil" />
+                                </button>
+                                <button className="btn btn-danger ml-2"
+                                    onClick={() => this.remove(customer)}>
+                                    <i className="fa fa-trash" />
+                                </button>
+                            </td>
+                        </tr>
+                    )
+                })
+            }
+            
     }
 
     render () {
         return (
             <Main {...headerProps}>
+                <h3>Cadastro Administrativo de usuários: Incluir, Listar, Alterar e Excluir</h3>
                 {this.renderForm()}
                 {this.renderTable()}
             </Main>
         ) 
     }
 }
+//TODO
+///FALTA CORRIGIR A INCLUSÃO DE USUÁRIO COM SENHA E ROLE
