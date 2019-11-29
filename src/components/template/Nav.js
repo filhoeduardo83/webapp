@@ -15,7 +15,7 @@ export default props =>
                 <i className="fa fa-address-card-o"></i> Registre-se
             </Link>
             <Link to="/users">
-                <i className="fa fa-address-card-o"></i> Cadastrar Cliente
+                <i className="fa fa-address-card-o"></i> Usuários cadastrados
             </Link>
         </nav>
     </aside>

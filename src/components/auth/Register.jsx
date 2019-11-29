@@ -9,11 +9,11 @@ const headerProps = {
     //subtitle: 'Informe suas credenciais'
 }
 
-const baseUrlLogin = 'http://localhost:8000/register/1003'
 const baseUrlCustomer = 'http://localhost:7000/customers/'
 
 const initialState = {
-    user: { name:'', email:'', tipoPessoa:'PF', cep:'', endereco:'', username: '', password: ''}
+    user: { name:'', email:'', tipoPessoa:'PF', cep:'', endereco:'', username:''},
+    login: {username:'', password:''}
 }
 
 
@@ -23,31 +23,38 @@ export default class Register extends React.Component {
 
     clear() {
         this.setState({ user: initialState.user })
+        this.setState({ login: initialState.login })
+
     }
 
     save() {
         const user = this.state.user
+        const login = this.state.login
         const method = 'post'
-        const urlLogin = baseUrlLogin
         const urlCustomer =  baseUrlCustomer
 
-        axios[method](urlLogin, user)
-            .then(resp => {
-                console.log(user)
-                console.log(resp.data) 
-            })
-        axios[method](urlCustomer, user)
+        axios[method](urlCustomer, user, login)
         .then(resp => {
             console.log(user)
+            console.log(login)
+
             console.log(resp.data) 
         })
         this.setState({ user: initialState.user })
+        this.setState({ login: initialState.login })
+
     }
 
-    updateField(event) {
+    updateFieldUser(event) {
         const user = { ...this.state.user }
         user[event.target.name] = event.target.value
         this.setState({ user })
+    }
+
+    updateFieldLogin(event) {
+        const login = { ...this.state.login }
+        login[event.target.name] = event.target.value
+        this.setState({ login })
     }
 
     onSubmit = () => {
@@ -60,41 +67,44 @@ export default class Register extends React.Component {
                 <div class="register-page">
                     <div class="form">
                         <form class="register-form"><h1>Novo cadastro</h1><p />
-                            Nome Completo
+                            Nome Completo*
                             <input type="text" className="form-control"
                                 name="name"
                                 value={this.state.user.name}
-                                onChange={e => this.updateField(e)}
+                                onChange={e => this.updateFieldUser(e)}
                                 placeholder="Digite o nome completo" />
                             Email
                             <input type="text" className="form-control"
                                 name="email"
                                 value={this.state.user.email}
-                                onChange={e => this.updateField(e)}
+                                onChange={e => this.updateFieldUser(e)}
                                 placeholder="Digite o email" />
                             CEP
                             <input type="text" className="form-control"
                                 name="cep"
                                 value={this.state.user.cep}
-                                onChange={e => this.updateField(e)}
+                                onChange={e => this.updateFieldUser(e)}
                                 placeholder="Digite o CEP" />
                             Endereço
                             <input type="text" className="form-control"
                                 name="endereco"
                                 value={this.state.user.endereco}
-                                onChange={e => this.updateField(e)}
+                                onChange={e => this.updateFieldUser(e)}
                                 placeholder="Digite o endereço completo" />
-                            Login
+                            Login*
                             <input type="text" className="form-control"
                                 name="username"
                                 value={this.state.user.username}
-                                onChange={e => this.updateField(e)}
+                                onChange={e => {
+                                    this.updateFieldUser(e)
+                                    this.updateFieldLogin(e)}
+                                }
                                 placeholder="Digite o nome de usuário" />
-                            Senha:
+                            Senha*
                             <input type="password" className="form-control"
                                 name="password"
-                                value={this.state.user.password}
-                                onChange={e => this.updateField(e)}
+                                value={this.state.login.password}
+                                onChange={e => this.updateFieldLogin(e)}
                                 placeholder="Digite a senha" />
                             <button className="btn btn-primary"
                                 onClick={e => this.save(e)}>
