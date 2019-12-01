@@ -33,9 +33,18 @@ export default class Login extends React.Component {
             .then(resp => {
                 console.log(user)
                 console.log(resp.data) 
+                if((resp.status_code = 200)){
+                    console.log("Login realizado com sucesso!!!")
+                    alert("Login realizado com sucesso!!!")
+                }else{
+                    console.log("Opa algo deu errado no login!!!")
+                    alert("Opa algo deu errado no login!!!"+ resp.data)
+                }
                 this.setState({ user: initialState.user })
             })
     }
+
+
 
     updateField(event) {
         const user = { ...this.state.user }
