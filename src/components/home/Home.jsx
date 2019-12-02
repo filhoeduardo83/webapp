@@ -7,7 +7,7 @@ import ProductShowcase from './ProductShowcase';
 const testData = () => {
   var tmpArray = [];
 
-  for (var i=0; i < 6; i++) {
+  for (var i=0; i < 9; i++) {
     tmpArray.push({
       name: 'Nice Product',
       price: 24.99,

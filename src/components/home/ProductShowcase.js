@@ -3,9 +3,9 @@ import React from 'react';
 
 class ProductShowcase extends React.Component {
 
-  render(props) {
+  render() {
     return (
-      <main className="content container-fluid" >
+      <main className="content container-fluid">
         <div className="p-3 mt-3">
           <h3>Nossos Produtos!</h3>
           <hr />
