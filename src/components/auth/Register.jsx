@@ -28,6 +28,7 @@ export default class Register extends React.Component {
         const method = 'post'
         const urlCustomer = baseUrlCustomer
 
+
         axios[method](urlCustomer, user)
             .then(resp => {
                 if((resp.status_code = 201)){
@@ -42,7 +43,10 @@ export default class Register extends React.Component {
                 alert("Opa algo deu errado no cadastro!!!"+ resp.data)
             }
         
-        })
+        }).catch((error) => {
+            console.log(error)
+            alert("Erro no cadastro do usuário")
+            })
         this.setState({ user: initialState.user })
 
     }
