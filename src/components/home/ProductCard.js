@@ -11,7 +11,7 @@ export default class ProductCard extends React.Component {
     const { price, name, description} = this.props
     
     return (
-      <div className="card" style={{width: 18+'rem'}}>
+      <div className="card">
         <img src="..." className="card-img-top" alt="Pic goes here" />
         <div className="card-body">
           <h5 className="card-title"><strong>R${price} </strong></h5>

@@ -2,6 +2,7 @@ import React from 'react'
 import Main from '../template/Main'
 import ProductCard from './ProductCard'
 import ProductShowcase from './ProductShowcase';
+import ProductCarousel from './ProductsCarousel'
 
 
 const testData = () => {
@@ -26,10 +27,13 @@ export default props =>
         <hr />
         <p className="mb-">Sistema desenvolvido como parte do trabalho final da disciplica Arquitetura de Computadores do MACC</p>
       </Main>
+      <ProductCarousel 
+        title="Promoções" 
+        promos={testData()}
+      />
       <ProductShowcase>
         <div>
           { testData().map(product => <ProductCard {...product} />) }
         </div>
       </ProductShowcase>
     </div>
-    

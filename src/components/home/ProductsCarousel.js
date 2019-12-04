@@ -1,5 +1,7 @@
 import React from 'react';
-import ProductCard from './ProductCard';
+import Carousel from 'react-bootstrap/Carousel';
+
+import SaleCard from './SaleCard';
 
 
 export default class ProductCarousel extends React.Component{
@@ -10,10 +12,13 @@ export default class ProductCarousel extends React.Component{
         <div className="p-3 mt-3">
          <h3> {this.props.title} </h3>
          <hr />
-         <div className="carousel slide" data-ride="carousel">
-            
-         </div>
-        </div>    
+        <Carousel style={{height: `320px`}}>
+          {
+            this.props.promos
+            .map(promo => <Carousel.Item> <SaleCard {...promo} /> </Carousel.Item>  )
+          }
+        </Carousel>
+        </div>
       </main>
     );
   }
