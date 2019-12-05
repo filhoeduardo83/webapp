@@ -5,15 +5,17 @@ import axios from 'axios'
 const headerProps = {
     title: 'Maccommerce',
     // title: 'Usuários',
-    subtitle: 'Cadastro de usuários: Incluir, Listar, Alterar e Excluir'
 }
 
 
-const baseUrl = 'http://localhost:3001/users'
+const baseUrl = 'http://localhost:7000/customers'
 const initialState = {
-    user: { name:'', email:''},
+    user: { name:'', username:''},
     list: []
 }
+
+
+
 
 
 export default class UserCrud extends Component {
@@ -79,6 +81,11 @@ export default class UserCrud extends Component {
                 <div className="row">
                     <div className="col-12 d-flex justify-content-end">
                         <button className="btn btn-primary"
+                            onClick={ e => this.updateField(e)}>
+                            Atualizar Lista
+                        </button>
+                       
+                        <button className="btn btn-primary ml-2"
                             onClick={ e => this.save(e)}>
                             Salvar
                         </button>
@@ -109,6 +116,26 @@ export default class UserCrud extends Component {
             const list = this.state.list.filter(u => u !==user)
             this.setState({ list })
         })
+
+
+
+        ///////---->>>>EXEMPLO BASE PARA USAR O TOKEN EM REQUISIÇÕES PROTEGIDAS
+        // const USER_TOKEN = localStorage.getItem('token')
+        // const AuthStr = 'Bearer '.concat(USER_TOKEN)
+        // const URL = 'http://localhost:8080/me'
+
+        // axios
+        // .get(URL, 
+        //     { headers: { Authorization: AuthStr } })
+        // .then(response => {
+        //             // If request is good...
+        //             console.log(response.data)
+        //         })
+        //         .catch((error) => {
+        //             console.log(error)
+        //         })
+
+
     }
 
     renderTable() {

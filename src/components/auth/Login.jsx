@@ -21,6 +21,7 @@ export default class Login extends React.Component {
 
     state = { ...initialState }
 
+    
     clear() {
         this.setState({ user: initialState.user })
     }
@@ -29,13 +30,43 @@ export default class Login extends React.Component {
         const user = this.state.user
         const method = user.id ? 'put' : 'post'
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
+        
+        
+        ///////---->>>>EXEMPLO BASE PARA USAR O TOKEN EM REQUISIÇÕES PROTEGIDAS
+        // const USER_TOKEN = localStorage.getItem('token')
+        // const AuthStr = 'Bearer '.concat(USER_TOKEN)
+        // const URL = 'http://localhost:8080/me'
+
+        // axios
+        // .get(URL, 
+        //     { headers: { Authorization: AuthStr } })
+        // .then(response => {
+        //             // If request is good...
+        //             console.log(response.data)
+        //         })
+        //         .catch((error) => {
+        //             console.log(error)
+        //         })
         axios[method](url, user)
             .then(resp => {
                 console.log(user)
                 console.log(resp.data) 
-                this.setState({ user: initialState.user })
+                if((resp.status_code = 200)){
+                    console.log("Login realizado com sucesso!!!")
+                    alert("Login realizado com sucesso!!!")
+                }else{
+                    console.log("Opa algo deu errado no login!!!")
+                    alert("Opa algo deu errado no login!!!"+ resp.data)
+                }
+            }).catch((error) => {
+                    console.log(error)
+                    alert("Credenciais inválidas")
             })
+            this.setState({ user: initialState.user })
+
     }
+
+
 
     updateField(event) {
         const user = { ...this.state.user }
