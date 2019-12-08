@@ -10,7 +10,6 @@ const headerProps = {
 }
 
 const baseUrl = 'http://localhost:8000/authenticate'
-//const baseUrl = 'http://localhost:4001/users'
 
 const initialState = {
     user: { username: '', password: '' },
@@ -26,7 +25,10 @@ export default class Login extends React.Component {
         this.setState({ user: initialState.user })
     }
 
-    save() {
+    save(e) {
+        
+        e.preventDefault()
+
         const user = this.state.user
         const method = user.id ? 'put' : 'post'
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl

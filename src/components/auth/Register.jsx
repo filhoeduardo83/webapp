@@ -5,15 +5,11 @@ import axios from 'axios'
 
 const headerProps = {
     title: 'Maccommerce',
-    //subtitle: 'Informe suas credenciais'
 }
-
-const baseUrlCustomer = 'http://localhost:7000/customers/'
 
 const initialState = {
     user: { name: '', email: '', tipoPessoa: 'PF', cep: '', endereco: '', username: '', password: '' },
 }
-
 
 export default class Register extends React.Component {
 
@@ -23,19 +19,19 @@ export default class Register extends React.Component {
         this.setState({ user: initialState.user })
     }
 
-    save() {
+    save(e) {
+
+        e.preventDefault()
+
         const user = this.state.user
-        const method = 'post'
-        const urlCustomer = baseUrlCustomer
+        
 
-
-        axios[method](urlCustomer, user)
+        axios.post(`http://localhost:7000/customers/`, user)
             .then(resp => {
                 if((resp.status_code = 201)){
 
                 console.log(user)
                 alert("Cadastro realizado com sucesso!!!")
-                console.log("Cadastro realizado com sucesso!!!")
                 console.log(resp.data)
                 
             }else{
