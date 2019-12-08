@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import './Login.css'
 import Main from '../template/Main'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { useAuth } from "../../context/Auth";
 
 const headerProps = {
     title: 'Maccommerce',
@@ -15,6 +16,9 @@ const initialState = {
     user: { username: '', password: '' },
 }
 
+//const [isLoggedIn, setLoggedIn] = useState(false)
+//const { setAuthTokens } = useAuth();
+
 
 export default class Login extends React.Component {
 
@@ -25,35 +29,21 @@ export default class Login extends React.Component {
         this.setState({ user: initialState.user })
     }
 
-    save(e) {
-        
+    save (e) {
         e.preventDefault()
-
+                
         const user = this.state.user
         const method = user.id ? 'put' : 'post'
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
-        
-        
-        ///////---->>>>EXEMPLO BASE PARA USAR O TOKEN EM REQUISIÇÕES PROTEGIDAS
-        // const USER_TOKEN = localStorage.getItem('token')
-        // const AuthStr = 'Bearer '.concat(USER_TOKEN)
-        // const URL = 'http://localhost:8080/me'
 
-        // axios
-        // .get(URL, 
-        //     { headers: { Authorization: AuthStr } })
-        // .then(response => {
-        //             // If request is good...
-        //             console.log(response.data)
-        //         })
-        //         .catch((error) => {
-        //             console.log(error)
-        //         })
         axios[method](url, user)
             .then(resp => {
                 console.log(user)
                 console.log(resp.data) 
                 if((resp.status_code = 200)){
+                    //setAuthTokens(resp.data);
+                    //setLoggedIn(true);
+                    this.props.history.push("/");
                     console.log("Login realizado com sucesso!!!")
                     alert("Login realizado com sucesso!!!")
                 }else{
@@ -65,10 +55,11 @@ export default class Login extends React.Component {
                     alert("Credenciais inválidas")
             })
             this.setState({ user: initialState.user })
-
     }
 
-
+    if (isLoggedIn) {
+        return <Redirect to="/" />;
+      }
 
     updateField(event) {
         const user = { ...this.state.user }

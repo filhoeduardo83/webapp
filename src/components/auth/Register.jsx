@@ -2,6 +2,8 @@ import React from 'react'
 import './Register.css'
 import Main from '../template/Main'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+
 
 const headerProps = {
     title: 'Maccommerce',
@@ -29,10 +31,11 @@ export default class Register extends React.Component {
         axios.post(`http://localhost:7000/customers/`, user)
             .then(resp => {
                 if((resp.status_code = 201)){
-
+                this.props.history.push("/");
                 console.log(user)
                 alert("Cadastro realizado com sucesso!!!")
                 console.log(resp.data)
+
                 
             }else{
                 console.log("Opa algo deu errado no cadastro!!!")
@@ -105,6 +108,7 @@ export default class Register extends React.Component {
                                 onClick={e => this.save(e)}>
                                 Registrar
                             </button>
+                            <p className="message">Já possui cadastro? <Link to="/login">Realize seu login</Link></p>
                         </form>
                     </div>
                 </div>
