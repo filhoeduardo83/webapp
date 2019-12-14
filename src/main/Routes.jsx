@@ -6,6 +6,8 @@ import Home from '../components/home/Home'
 import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
 import Cart from '../components/cart/Cart'
+import Checkout from '../components/checkout/Checkout'
+
 import { useAuth } from "../context/Auth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -30,7 +32,9 @@ const Routes = () =>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
-        <PrivateRoute path='/cart' component={Cart} />
+        <Route path='/cart' component={Cart} />
+
+        <PrivateRoute path='/checkout' component={Checkout} />
         <Redirect from='*' to='/' />
     </Switch>
 export default Routes

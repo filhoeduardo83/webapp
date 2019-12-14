@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Main from '../template/Main'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+
 
 const headerProps = {
     title: 'Maccommerce',
@@ -9,7 +11,7 @@ const headerProps = {
 
 const url = 'http://localhost:7000/cart'
 const initialState = {
-    product: { name:'', price:''},
+    product: { name:'', price:'', qtd:''},
     list: []
 }
 
@@ -31,40 +33,20 @@ export default class Cart extends Component {
         this.setState({ product: initialState.product})
     }
 
-    save () {
-        const product = this.state.product
-
-        axios.put(url, product)
-            .then (resp => {
-                const list = this.getUpdatedList(resp.data)
-                this.setState({ product: initialState.product, list})
-            })
-    }
-
-    updateField(event) {
-        const product = {...this.state.product}
-        product[event.target.name] = event.target.value
-        this.setState({ product })
-    }
-
     renderForm() {
         return (
                 <div className="row">
-                    <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-primary"
-                            onClick={ e => this.updateField(e)}>
-                            Finalizar Compra
-                        </button>
-                       
-                        <button className="btn btn-primary ml-2"
-                            onClick={ e => this.save(e)}>
-                            Continuar comprando
-                        </button>
-
-                        <button className="btn btn-primary ml-2"
-                            onClick={ e => this.clear(e)}>
-                            Cancelar
-                        </button>
+                    <div className="col-12 d-flex justify-content-center">
+                        <Link to="/checkout" className="checkout" >
+                            <button className="btn btn-primary">
+                                Finalizar Compra
+                            </button>
+                        </Link> 
+                        <Link to="/" className="voltar" >
+                            <button className="btn btn-primary ml-2">
+                                Continuar comprando
+                            </button>
+                        </Link> 
                     </div>
                 </div>
                 
@@ -130,14 +112,10 @@ export default class Cart extends Component {
             return this.state.list.map(product => {
                 return (
                     <tr key={product.id}>
-                        <td>{product.id}</td>
                         <td>{product.name}</td>
-                        <td>{product.email}</td>
+                        <td>{product.price}</td>
+                        <td>{product.qtd}</td>
                         <td>
-                            <button className="btn btn-warning"
-                                onClick={() => this.load(product)}>
-                                <i className="fa fa-pencil" />
-                            </button>
                             <button className="btn btn-danger ml-2"
                                 onClick={() => this.remove(product)}>
                                 <i className="fa fa-trash" />
@@ -151,8 +129,8 @@ export default class Cart extends Component {
     render () {
         return (
             <Main {...headerProps}>
-                {this.renderForm()}
                 {this.renderTable()}
+                {this.renderForm()}
             </Main>
         ) 
     }
