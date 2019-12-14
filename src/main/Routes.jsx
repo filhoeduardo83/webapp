@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../components/home/Home'
 import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
-import UserCrud from '../components/user/UserCrud'
+import Cart from '../components/cart/Cart'
 import { useAuth } from "../context/Auth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -30,7 +30,7 @@ const Routes = () =>
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
-        <PrivateRoute path='/users' component={UserCrud} />
+        <PrivateRoute path='/cart' component={Cart} />
         <Redirect from='*' to='/' />
     </Switch>
 export default Routes
