@@ -26,9 +26,12 @@ export default class Register extends React.Component {
         e.preventDefault()
 
         const user = this.state.user
-        
+        const { REACT_APP_API_SINGLE_REGISTRY_URL} = process.env
 
-        axios.post(`192.168.99.136:7000/customers/`, user)
+
+        console.log(process.env.REACT_APP_API_SINGLE_REGISTRY_URL)
+
+        axios.post(`${REACT_APP_API_SINGLE_REGISTRY_URL}/customers/`, user)
             .then(resp => {
                 if((resp.status_code = 201)){
                 this.props.history.push("/");

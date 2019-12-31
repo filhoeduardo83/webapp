@@ -10,10 +10,12 @@ const headerProps = {
 }
 
 function Login() {
-    const [isLoggedIn, setLoggedIn] = useState(false);
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-    const { setAuthTokens } = useAuth();
+    const [isLoggedIn, setLoggedIn] = useState(false)
+    const [username, setUserName] = useState("")
+    const [password, setPassword] = useState("")
+    const { setAuthTokens } = useAuth()
+    const {REACT_APP_API_AUTH_URL} = process.env
+
     let user;
 
 
@@ -21,10 +23,11 @@ function Login() {
          e.preventDefault()
 
         user = {username, password}
+        console.log(REACT_APP_API_AUTH_URL)
 
         console.log("Iniciando requisição:")
         console.log(user)
-        axios.post(`http://192.168.99.136:8000/authenticate`, user)
+        axios.post(`${REACT_APP_API_AUTH_URL}/authenticate`, user)
         .then(resp => {
             console.log(resp.data)
             if ((resp.status_code = 200)) {
