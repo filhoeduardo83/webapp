@@ -1,8 +1,8 @@
 :root {
     --bg-dark: #1A2F3A;
 
-    --logo-height: 100px;
-    --header-height: 100px;
+    --logo-height: 150px;
+    --header-height: 150px;
     --menu-top-height: 100px;
     --aside-width: 225px;
     --footer-height: 40px;
@@ -19,21 +19,23 @@
 
 .app {
     margin: 0px;
-    display: grid;
-    grid-template-columns: var(--aside-width) 1fr;
+    /* display: grid;
+    grid-template-columns: 300px 300px 300px;
     grid-template-rows: 
-        var(--header-height)
+        200px
+        100px
         1fr
         var(--footer-height);
     grid-template-areas:
-        "logo header"
-        "menu content"
-        "menu footer";
-    height: 200vh;
+        "logo header header"
+        "menu menu menu"
+        "content content content"
+        "footer";
+    height: 200vh; */
     background-color: #F5F5F5;
 }
 
-aside.logo {
+.logo {
     grid-area: logo;
 }
 
@@ -41,7 +43,7 @@ header.header {
     grid-area: header;
 }
 
-aside.menu-area {
+.menu-area {
     grid-area: menu;
 }
 
@@ -52,7 +54,7 @@ main.content {
 footer.footer  {
     grid-area: footer;
 }
-
+/* 
 @media(max-width: 768px) {
     .app {
         grid-template-rows:
@@ -83,4 +85,4 @@ footer.footer  {
             "content"
             "footer";
     }
-}
+} */

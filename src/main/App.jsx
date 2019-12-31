@@ -8,6 +8,8 @@ import 'font-awesome/css/font-awesome.min.css'
 
 import Routes from './Routes'
 import Logo from '../components/template/Logo'
+import Header from '../components/template/Header'
+
 import Nav from '../components/template/Nav'
 import Footer from '../components/template/Footer'
 import {AuthContext} from  '../context/Auth'
@@ -25,7 +27,7 @@ export default props => {
         <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
             <HashRouter>
                 <div className="app">
-                    <Logo />
+                    <Header />
                     <Nav />
                     <Routes />
                     <Footer />

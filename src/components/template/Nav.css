@@ -1,4 +1,8 @@
-aside.menu-area {
+.menu-area {
+    display:flex;
+    padding: 15px;
+    flex:1;
+
     background-color: var(--bg-dark);
     box-shadow: 
         2px 0 10px 0 rgba(0, 0, 0, 0.12),
@@ -6,7 +10,9 @@ aside.menu-area {
 }
 
 .menu a {
-    display: block;
+
+    /* display: grid;
+    grid-template-columns: 100px 100px 100px 100px; */
     text-decoration: none;
     color: #FFF;
     font-weight: 300;

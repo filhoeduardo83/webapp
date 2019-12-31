@@ -3,8 +3,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default props =>
-    <aside className="menu-area">
-        <nav className="menu">
+    <div className="menu-area">
+        <div className="menu">
             <Link to="/">
                 <i className="fa fa-home"></i> Início
             </Link>
@@ -17,5 +17,5 @@ export default props =>
             <Link to="/cart">
                 <i className="fa fa-shopping-cart"></i> Carrinho
             </Link>
-        </nav>
-    </aside>
+        </div>
+    </div>

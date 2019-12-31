@@ -24,7 +24,7 @@ function Login() {
 
         console.log("Iniciando requisição:")
         console.log(user)
-        axios.post(`http://localhost:8000/authenticate`, user)
+        axios.post(`http://192.168.99.136:8000/authenticate`, user)
         .then(resp => {
             console.log(resp.data)
             if ((resp.status_code = 200)) {
