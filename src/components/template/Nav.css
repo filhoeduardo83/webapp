@@ -3,6 +3,8 @@
     flex-direction: column;
 
     padding: 15px;
+    padding-left: 200px;
+    padding-right: 200px;
     flex:1;
 
     background-color: var(--bg-dark);

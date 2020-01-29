@@ -19,6 +19,9 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  padding-left: 200px;
+  padding-right: 200px;
+
 }
 
 
@@ -35,7 +38,7 @@
     font-size: 2.0em;
     color: aliceblue;
     font-family: Arial,sans-serif;
-    padding-left:250px;
+    padding-left: 300px;
     font-weight: bold;
 
   }
