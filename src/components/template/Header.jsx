@@ -4,11 +4,18 @@ import Logo from './Logo'
 import React from 'react'
 
 export default props =>
-    <div className="bar">
-        <Logo />
-        <header className="header d-none d-sm-flex flex-column">
-            <h1 className="mt-3">
-                <i className={`fa fa-${props.icon}`}></i> <strong>Maccommerce</strong>
-            </h1>
-        </header>
+<div className="bar">
+    <div className= "top">
+        Compre hoje e ganhe frete grátis em compras acima de 100 reais !
     </div>
+
+    <div className="content">
+         <Logo />
+        <div className="maccommerce">
+            <h1>                
+               <strong>Maccommerce</strong>
+            </h1>
+        </div>
+    </div>
+
+</div>

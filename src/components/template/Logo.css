@@ -1,16 +1,15 @@
 .logo {
-    background-color: var(--bg-dark);
-    /* display: grid; */
-
+    /* background-color: var(--bg-dark); */
+    width: 25%;
 }
 
 .logo img {
-    padding: 0px 15px;
-    width: 30%;
+    padding: 20px 15px;
+    width: 70%;
 }
 
-@media(max-width: 576px) {
+/* @media(max-width: 576px) {
     aside.logo img {
         width: 350px;
     }
-}
+} */
