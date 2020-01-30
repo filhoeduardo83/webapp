@@ -21,7 +21,7 @@ const testData = () => {
 
 export default props =>
 
-    <div>
+    <div >
       <Main title="Maccommerce">
         <div className='display-4'> Bem vindo!</div>
         <hr />
