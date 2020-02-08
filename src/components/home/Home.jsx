@@ -1,6 +1,5 @@
 import React from 'react'
 import Main from '../template/Main'
-import ProductCard from './ProductCard'
 import ProductShowcase from './ProductShowcase';
 import ProductCarousel from './ProductsCarousel'
 
@@ -31,9 +30,5 @@ export default props =>
         title="Promoções" 
         promos={testData()}
       />
-      <ProductShowcase>
-        <div>
-          { testData().map(product => <ProductCard {...product} />) }
-        </div>
-      </ProductShowcase>
+      <ProductShowcase/>
     </div>
